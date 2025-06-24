@@ -1,0 +1,103 @@
+.weather-container {
+  text-align: center;
+  margin: 100px auto 0 auto;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.input-field {
+  padding: 10px;
+  font-size: 1rem;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.suggestions-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-item {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+
+.weather-result {
+  margin-top: 20px;
+}
+
+.weather-icon {
+  width: 100px;
+  height: 100px;
+}
+
+.error-msg {
+  color: red;
+  margin-top: 10px;
+}
+
+
+.input-wrapper {
+  position: relative;
+  width: 70%;
+  margin: 0 auto;
+}
+
+/* Responsive: For screens 480px and below */
+@media screen and (max-width: 480px) {
+  .input-wrapper {
+    width: 90%;
+  }
+
+  .input-field {
+    font-size: 1.1rem;
+    padding: 12px;
+  }
+
+  .suggestions-list {
+    max-height: 150px;
+  }
+
+  .weather-icon {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+/* Medium screens optimization (481px to 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .input-wrapper {
+    width: 85%;
+  }
+}
+
+
+
+
+
+
+
+
