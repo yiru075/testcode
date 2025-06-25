@@ -2,8 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import './weather.css';
 
-const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
-
 function Weather() {
   const [input, setInput] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -13,34 +11,27 @@ function Weather() {
   const inputRef = useRef(null);
   const skipSuggestion = useRef(false);
 
-  const defaultCountry = 'AU';
-
   const [bgClass, setBgClass] = useState('');
-
 
   const getBackgroundClassByDescription = (description) => {
     const desc = description.toLowerCase();
-
     if (desc.includes('cloud')) return 'cloudy-bg';
     if (
       desc.includes('rain') ||
       desc.includes('drizzle') ||
       desc.includes('storm') ||
       desc.includes('thunder')
-    ) return 'rainy-bg';
-
+    )
+      return 'rainy-bg';
     return 'sunny-bg';
   };
 
   useEffect(() => {
     document.body.className = bgClass;
-
     return () => {
       document.body.className = '';
     };
   }, [bgClass]);
-
-
 
   useEffect(() => {
     if (skipSuggestion.current) {
@@ -65,27 +56,10 @@ function Weather() {
   const fetchSuggestions = async (query) => {
     try {
       const isZip = /^\d{3,10}$/.test(query.trim());
-
-      if (isZip) {
-        const res = await axios.get(
-          `https://api.openweathermap.org/geo/1.0/zip?zip=${query},${defaultCountry}&appid=${API_KEY}`
-        );
-        const zipPlace = {
-          name: `Postal code ${query}`,
-          lat: res.data.lat,
-          lon: res.data.lon,
-          country: res.data.country,
-        };
-        setSuggestions([zipPlace]);
-      } else {
-        const res = await axios.get(
-          `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(
-            query
-          )}&limit=5&appid=${API_KEY}`
-        );
-        setSuggestions(res.data);
-      }
-
+      const res = await axios.get(
+        isZip ? `/api/location?zip=${query}` : `/api/location?q=${query}`
+      );
+      setSuggestions(res.data);
       setError('');
     } catch (e) {
       setError('Failed to fetch location suggestions.');
@@ -102,11 +76,8 @@ function Weather() {
     setError('');
 
     try {
-      const res = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${place.lat}&lon=${place.lon}&appid=${API_KEY}&units=metric&lang=en`
-      );
+      const res = await axios.get(`/api/weather?lat=${place.lat}&lon=${place.lon}`);
       setWeather(res.data);
-
       const description = res.data.weather[0].description;
       setBgClass(getBackgroundClassByDescription(description));
     } catch (e) {
