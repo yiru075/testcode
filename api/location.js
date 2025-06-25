@@ -4,7 +4,7 @@ export default async function handler(req, res) {
     'https://climatenow.vercel.app' 
   ];
 
-    const origin = req.headers.origin;
+    const origin = req.headers.origin || '';
 
     console.log('Request Origin:', origin);
 
@@ -13,9 +13,18 @@ export default async function handler(req, res) {
         return;
     }
 
-    res.setHeader('Access-Control-Allow-Origin', origin); 
+    if (req.method === 'OPTIONS') {
+    res.setHeader('Access-Control-Allow-Origin', origin);
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(200).end();
+  }
+
+  
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
 
     // Extract query parameters: 'q' for city name, 'zip' for postal code
     const { q, zip } = req.query;
