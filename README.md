@@ -4,7 +4,7 @@
 
 
 ## Deployed on Vercel
-https://climatenow.vercel.app/
+https://climatenow.vercel.app
 
 
 ## Tech Stack

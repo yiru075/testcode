@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
     const allowedOrigins = [
     'http://localhost:5173',           
-    'https://climatenow.vercel.app/' 
+    'https://climatenow.vercel.app' 
   ];
 
   const origin = req.headers.origin;
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', origin); 
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    
+
     // Extract query parameters: 'q' for city name, 'zip' for postal code
     const { q, zip } = req.query;
     const country = 'AU';

@@ -2,7 +2,7 @@ export default async function handler(req, res) {
 
     const allowedOrigins = [
     'http://localhost:5173',           
-    'https://climatenow.vercel.app/' 
+    'https://climatenow.vercel.app' 
   ];
 
   const origin = req.headers.origin;
