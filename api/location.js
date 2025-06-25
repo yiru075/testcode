@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
     const { q, zip } = req.query;
     const country = 'AU';
-    const apiKey = process.env.OPENWEATHER_API_KEY;
+    const apiKey = process.env.VITE_OPENWEATHER_API_KEY;
 
     try {
         if (zip) {
