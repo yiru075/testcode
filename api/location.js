@@ -1,27 +1,6 @@
 export default async function handler(req, res) {
-    const allowedOrigins = [
-    'http://localhost:5173',           
-    'https://climatenow.vercel.app' 
-  ];
-
-    const origin = req.headers.origin || '';
-
-    console.log('Request Origin:', origin);
-
-    if (!allowedOrigins.includes(origin)) {
-        res.status(403).json({ error: 'Access denied: unauthorized origin' });
-        return;
-    }
-
-    if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(200).end();
-  }
-
   
-    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
