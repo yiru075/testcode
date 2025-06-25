@@ -3,16 +3,17 @@ import axios from 'axios';
 import './weather.css';
 
 function Weather() {
-  const [input, setInput] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-  const [weather, setWeather] = useState(null);
-  const [error, setError] = useState('');
-  const debounceTimeout = useRef(null);
-  const inputRef = useRef(null);
-  const skipSuggestion = useRef(false);
+  const [input, setInput] = useState(''); // User input from the search field
+  const [suggestions, setSuggestions] = useState([]); // Suggestions from location API
+  const [weather, setWeather] = useState(null); // Weather data from weather API
+  const [error, setError] = useState(''); // Error message state
+  const debounceTimeout = useRef(null); // Timer reference for debouncing
+  const inputRef = useRef(null); // Reference to input element
+  const skipSuggestion = useRef(false); // Flag to skip suggestion logic after selection
 
-  const [bgClass, setBgClass] = useState('');
+  const [bgClass, setBgClass] = useState(''); // Background class to apply weather theme
 
+  // Determine background class based on weather description
   const getBackgroundClassByDescription = (description) => {
     const desc = description.toLowerCase();
     if (desc.includes('cloud')) return 'cloudy-bg';
@@ -26,6 +27,7 @@ function Weather() {
     return 'sunny-bg';
   };
 
+  // Update body background class when bgClass changes
   useEffect(() => {
     document.body.className = bgClass;
     return () => {
@@ -33,6 +35,7 @@ function Weather() {
     };
   }, [bgClass]);
 
+  // Debounced input watcher
   useEffect(() => {
     if (skipSuggestion.current) {
       skipSuggestion.current = false;
@@ -44,6 +47,7 @@ function Weather() {
       return;
     }
 
+    // Debounce logic: only fire API after typing stops for 300ms
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
 
     debounceTimeout.current = setTimeout(() => {
@@ -53,6 +57,7 @@ function Weather() {
     return () => clearTimeout(debounceTimeout.current);
   }, [input]);
 
+  // Fetch city or zip suggestions based on input
   const fetchSuggestions = async (query) => {
     try {
       const isZip = /^\d{3,10}$/.test(query.trim());
@@ -67,6 +72,7 @@ function Weather() {
     }
   };
 
+  // When user selects a suggestion, fetch weather data
   const handleSelect = async (place) => {
     const label = `${place.name || ''}${place.state ? ', ' + place.state : ''}, ${place.country}`;
     setInput(label);
@@ -84,6 +90,7 @@ function Weather() {
       setError('Failed to fetch weather data.');
     }
 
+    // Blur the input after selection to hide keyboard on mobile
     if (inputRef.current) inputRef.current.blur();
   };
 
@@ -100,8 +107,8 @@ function Weather() {
           value={input}
           onChange={(e) => {
             setInput(e.target.value);
-            setWeather(null);
-            setError('');
+            setWeather(null); // Clear old weather
+            setError('');     // Clear old error
           }}
           onBlur={() => {
             if (suggestions.length === 0 && !weather && input.trim().length > 0) {

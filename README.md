@@ -1,13 +1,35 @@
-# React + Vite
+ # CLIMATE NOW
+ 
+ A simple React application that provides real-time weather information based on user-input city names or postal codes. The background dynamically changes according to current weather conditions (sunny, cloudy, rainy).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Deployed on Vercel
+https://climatenow.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Tech Stack
+Frontend: React + Vite
+API: OpenWeatherMap API
+Deployment: Vercel
+Serverless Function:
+    - api/location.js(Fetch geolocation data (city name or postal code))
+    - api/weather.js(Fetch weather data by latitude/longitude)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
-"# testcode" 
+
+## Installation and Run Locally
+### Clone the Repostory
+```bash
+https://github.com/yiru075/testcode.git
+cd weather
+```
+
+### Install Dependencies
+`npm install`
+
+### Set Up Environment Variables
+Create a .env.local file in the root folder with:
+VITE_OPENWEATHER_API_KEY=your_api_key_here
+
+
+### Start the App Locally
+`npm run dev`
