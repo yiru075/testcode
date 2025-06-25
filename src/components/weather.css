@@ -1,7 +1,32 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease-in-out;
+  min-height: 100vh;
+}
+
 .weather-container {
   text-align: center;
-  margin: 100px auto 0 auto;
+  padding: 2rem;
+  border-radius: 12px;
 }
+
+
+.sunny-bg {
+  background-image: url('/sunny.png');
+}
+
+.cloudy-bg {
+  background-image: url('/cloudy.png');
+}
+
+.rainy-bg {
+  background-image: url('/rain.jpg');
+}
+
 
 .input-wrapper {
   position: relative;
@@ -47,6 +72,9 @@
 
 .weather-result {
   margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding:10px;
 }
 
 .weather-icon {

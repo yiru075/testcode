@@ -15,6 +15,33 @@ function Weather() {
 
   const defaultCountry = 'AU';
 
+  const [bgClass, setBgClass] = useState('');
+
+
+  const getBackgroundClassByDescription = (description) => {
+    const desc = description.toLowerCase();
+
+    if (desc.includes('cloud')) return 'cloudy-bg';
+    if (
+      desc.includes('rain') ||
+      desc.includes('drizzle') ||
+      desc.includes('storm') ||
+      desc.includes('thunder')
+    ) return 'rainy-bg';
+
+    return 'sunny-bg';
+  };
+
+  useEffect(() => {
+    document.body.className = bgClass;
+
+    return () => {
+      document.body.className = '';
+    };
+  }, [bgClass]);
+
+
+
   useEffect(() => {
     if (skipSuggestion.current) {
       skipSuggestion.current = false;
@@ -79,6 +106,9 @@ function Weather() {
         `https://api.openweathermap.org/data/2.5/weather?lat=${place.lat}&lon=${place.lon}&appid=${API_KEY}&units=metric&lang=en`
       );
       setWeather(res.data);
+
+      const description = res.data.weather[0].description;
+      setBgClass(getBackgroundClassByDescription(description));
     } catch (e) {
       setError('Failed to fetch weather data.');
     }
